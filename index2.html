@@ -14,22 +14,22 @@
 	<center><input type="text" placeholder="Search for people"></center>
 	<div class="people-find">
 	<div class="people">
-			<div class="people-card" id="missing">
+			<div class="people-card missing">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Missing</p></div>
 			</div>
-			<div class="people-card" id="missing">
+			<div class="people-card missing">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Missing</p></div>
 			</div>
-			<div class="people-card" id="safe">
+			<div class="people-card safe">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Safe</p></div>
 			</div>
-			<div class="people-card" id="injured">
+			<div class="people-card injured">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Injured</p></div>
 			</div>
-			<div class="people-card" id="dead">
+			<div class="people-card dead" >
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Deceased</p></div>
 			</div>
-			<div class="people-card" id="missing">
+			<div class="people-card missing">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Missing</p></div>
 			</div>
 		</div>
@@ -37,7 +37,7 @@
 	<div class="button-wrapper"><button>Report Missing</button>&middot;<button>Report Found</button></div>
 </div>
 <div class="right-panel">
-	<div class="title"><h4>Country Disaster</h4><p>Date of mishap</p></div>
+	<div class="title"><h4 id="country">Country Disaster</h4><p>Date of mishap</p></div>
 	<div class="stats">
 	<center><div class="num-wrapper" id="people">
 		<div class="numbers"><p><b>21</b></p><p>Missing</p></div>
@@ -53,7 +53,49 @@
 	</div>
 </div>
 <script type="text/javascript">
-	$(document).ready(function(){});
+	$(document).ready(function(){
+		var country;
+		$.post("http://localhost/averted-angelhacks/location.php",{input: "getmapdata"}, function(data, status){
+			var ar = $.parseJSON(data);
+			// console.log(ar);
+        	$("#country").html(ar[0]['name']);
+        	country = ar[0]['name'];	
+        	alert(country);
+	    	$.post("http://localhost/averted-angelhacks/persons.php",{input: "getpersons", loc: country}, function(data){
+	    		console.log(data);
+				var ar = $.parseJSON(data);
+				$.each(ar, function(sid, arr){
+					status = arr['status'];
+					name = arr['name'];
+
+					$(".people").html($(".people").html() + '<div class="people-card '+status+'"><img src="1.jpg"><div class="text-wrapper"><p><b>'+name+'</b></p><p>Status : '+status+'</p></div></div>');
+					// var div = document.createElement('div');
+					// div.addClass("people-card");
+					// div.addClass(arr['status']);
+					// div.attr('id', sid);
+
+				// <div class="people-card missing">
+				// 	<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Missing</p></div>
+				// </div>
+					// var img = div.createElement('img');
+					// if(arr['image_name'] != "")
+					// 	img.src = 'upload/' + arr['image_name'];
+					// else
+					// 	img.src = "1.jpg";
+					// var t2 = div.createElement('div');
+					// t2.addClass("text-wrapper");
+					// var t = t2.createElement('p');
+					// t = t.createElement('b');
+					// t.html(arr['name']);
+					// t = t2.createElement('p');
+					// t = t.createElement('b');
+					// t.html(arr['status']);
+				});
+				// console.log(ar);
+
+    		});
+    	});
+	});
 </script>
 </body>
 </html>
