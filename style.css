@@ -372,8 +372,25 @@ input[type="text"] {
   color: #555;
   font-size: 1.3em;
   line-height: 1.5;
-}
+<div class=​"right-text-wrap">​}
 .person-profile .right-text-wrap .name {
   font-weight: 400;
   font-size: 1.7em;
+}
+.person-profile .right-text-wrap a
+{
+  position: relative;
+  top: 20px;
+  padding: 10px 20px;
+  background: #eee;
+  color:#333;
+  margin-right: 2px;
+  margin-left: 2px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.person-profile .right-text-wrap a:hover{
+  background: #e94747;
 }

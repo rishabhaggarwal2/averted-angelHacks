@@ -60,11 +60,13 @@
 		<img src="Cross.png">
 	</div>	
 	<div class="missing-form">
-		<form id="sss" action='persons.php' method="post" enctype="multipart/form-data">
-			<input type="text" placeholder="Name of the person" id='name1'>
-			<input type="text" placeholder="Your Name" id='uname1'>
-			<input type="text" placeholder="Your contact number" id='phn1'>
+		<form id="sss"  method="post" enctype="multipart/form-data">
+			<input type="text" name='name' placeholder="Name of the person" id='name1'>
+			<!-- <input type="text" name='status' placeholder="Your Name" id='uname1'> -->
+			<input type="text" name='phone' placeholder="Your contact number" id='phn1'>
 			<span>Picture of the person : </span><input type="file" name="userfile" class="upload" id="images"><br>
+			<!-- <input type="text" name='loc' value='Nepal' style="display:none"> -->
+			<input type="text" name='input' value='setpersons' style="display:none" id='rm-in'>
 			<input type='submit' name='submit' id='btn'>
 			<p id="response"></p>
 		</form>
@@ -82,7 +84,7 @@
 			<input type="text" placeholder="Person Found">
 			<input type="text" placeholder="Your contact number">
 			<span>Picture of the person : </span><input type="file" name="userfile" class="upload"><br>
-			<input type="submit">
+			<!-- <input type="submit"> -->
 		</form>
 	</div>
 </div>
@@ -93,11 +95,12 @@
 		<img src="Cross.png">
 	</div>	
 	<div class="person-profile">
-		<img src="1.jpg">
+		<img src="1.jpg" id="tab-img">
 		<div class="right-text-wrap">
 			<div class="name" id='tab-name'>Name of the person</div>
 			<div class="status" id='tab-status'>Status : Missing</div>
 			<div class="Contact" id='tab-phone'></div>
+			<a href="#" id="well">All Well</a><a href="#" id="injured">Injured</a><a href="#" id="deceased">Deceased</a>
 		</div>
 	</div>
 </div>

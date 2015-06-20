@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	//AKshay
 	var country;
-	var list;
+	var list = {};
 // 	$('#btn').on('click', function() {
 //     var file_data = $('#images').prop('files')[0];   
 //     var form_data = new FormData();                  
@@ -30,7 +30,55 @@ $(document).ready(function(){
 
 //     return false;
 // });
-	$("#sss").ajaxForm(function(){alert(":D")});
+	//$("#sss").ajaxForm(function(){alert(":D")});
+	$("#sss").on('submit',(function(e) {
+	e.preventDefault();
+	// $("#message").empty();
+	// $('#loading').show();
+	console.log("asd");
+	formd = new FormData(this);
+	console.log(formd);
+	$.ajax({
+	url: "persons.php", // Url to which the request is send
+	type: "POST",             // Type of request to be send, called as method
+	data: formd, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+	contentType: false,       // The content type used when sending data to the server.
+	cache: false,             // To unable request pages to be cached
+	processData:false,        // To send DOMDocument or non processed data file it is set to false
+	success: function(data)   // A function to be called if request succeeds
+	{
+		console.log(data);
+		$('.tab-rm').animate({top:"-100%"},500);
+		$('.black-back').animate({opacity:"0"},500);
+		setTimeout(function(){
+			$('.black-back').css("display","none");
+		},500);
+		$(".people").html("");
+		$.post("http://localhost/averted-angelhacks/persons.php",{input: "getpersons", loc: country}, function(data){
+    		console.log(data);
+			var ar = $.parseJSON(data);
+			$.each(ar, function(sid, arr){
+				console.log(arr);
+				list[arr['id']-1] = ar[sid];
+			});
+			// list = ar;
+			$.each(ar, function(sid, arr){
+				status = arr['status'];
+				name = arr['name'];
+				img = "uploads/" + arr['image_name'];
+				if(img == "uploads/" + "")
+					img = "1.jpg";
+
+				$(".people").html($(".people").html() + '<div class="people-card '+status+'" id="'+(arr['id']-1)+'"><img src="'+img+'"><div class="text-wrapper"><p><b>'+name+'</b></p><p>Status : '+status+'</p></div></div>');
+			});
+		});
+		$("input").val("");
+		$("#rm-in").val("setpersons");
+	// $('#loading').hide();
+	// $("#message").html(data);
+	}
+	});
+	}));
 	$.post("http://localhost/averted-angelhacks/location.php",{input: "getmapdata"}, function(data, status){
 		var ar = $.parseJSON(data);
 		// console.log(ar);
@@ -39,14 +87,21 @@ $(document).ready(function(){
     	country = ar[0]['name'];	
     	// alert(country);
     	$.post("http://localhost/averted-angelhacks/persons.php",{input: "getpersons", loc: country}, function(data){
-    		// console.log(data);
+    		console.log(data);
 			var ar = $.parseJSON(data);
-			list = ar;
+			$.each(ar, function(sid, arr){
+				console.log(arr);
+				list[arr['id']-1] = ar[sid];
+			});
+			// list = ar;
 			$.each(ar, function(sid, arr){
 				status = arr['status'];
 				name = arr['name'];
+				img = "uploads/" + arr['image_name'];
+				if(img == "uploads/" + "")
+					img = "1.jpg";
 
-				$(".people").html($(".people").html() + '<div class="people-card '+status+'" id="'+(arr['id']-1)+'"><img src="1.jpg"><div class="text-wrapper"><p><b>'+name+'</b></p><p>Status : '+status+'</p></div></div>');
+				$(".people").html($(".people").html() + '<div class="people-card '+status+'" id="'+(arr['id']-1)+'"><img src="'+img+'"><div class="text-wrapper"><p><b>'+name+'</b></p><p>Status : '+status+'</p></div></div>');
 			});
 		});
     });
@@ -127,6 +182,10 @@ $(document).ready(function(){
 		$('#tab-name').html(list[id]['name']);
 		$('#tab-phone').html("Phone: "+list[id]['phone']);
 		$('#tab-status').html("Status: "+list[id]['status']);
+				img = "uploads/" + list[id]['image_name'];
+				if(img == "uploads/" + "")
+					img = "1.jpg";
+				$("#tab-img").attr("src", img);
 	} );
 	// $('.people-card').click(function(){
 	// 	console.log(":)");

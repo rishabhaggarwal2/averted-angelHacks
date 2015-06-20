@@ -2,21 +2,22 @@
 	require("mysql.class.php");
 
 	// $input = $_GET['input'];//debug
-	//foreach($_POST as $key => $value){//production
-	if(isset($_POST['submit'])){
-		$file = 'people.txt';
-// Open the file to get existing content
-$current = file_get_contents($file);
-// Append a new person to the file
-$current .= $_FILES['userfile']['name']+"\n";
-// Write the contents back to the file
-file_put_contents($file, $current);
-		echo $_FILES['userfile']['name'];
-	}
-	foreach ($_POST as $key => $value) {//debug
+	foreach($_POST as $key => $value){//production
+// 	if(isset($_POST['submit'])){
+// 		echo "asdad";
+// 		$file = 'people.txt';
+// // Open the file to get existing content
+// $current = file_get_contents($file);
+// // Append a new person to the file
+// $current .= $_FILES['userfile']['name']+"\n";
+// // Write the contents back to the file
+// file_put_contents($file, $current);
+// 		echo $_FILES['userfile']['name'];
+// 	}
+// 	foreach ($_POST as $key => $value) {//debug
 		$input[$key] = $value;
 	}
-	//$input = $_POST['input'];//production
+	// $input = $_POST['input'];//production
 	global $o;
 	$o = new MySQL();
 	switch ($input['input']) {
@@ -28,14 +29,15 @@ file_put_contents($file, $current);
 		case 'setpersons':
 			$name = $input['name'];
 			$loc = $input['loc'];
-			$status = $input['status'];
-			$uploaddir = '/uploads/';
+			//$status = $input['status'];
+			$uploaddir = 'uploads/';
 			$i = rand(1,100);
 			$filename = md5(basename($_FILES['userfile']['name']).$i);
 			$uploadfile = $uploaddir.$filename;
+			$uploadfile = $uploaddir.$_FILES['userfile']['name'];
 			move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile);
 			$phone = $input['phone'];
-			setInfo($o, $name, $loc, $status, $filename, $phone);
+			setInfo($o, $name, $loc, "missing", $_FILES['userfile']['name'], $phone);
 			break;
 
 		case 'update':
@@ -60,7 +62,7 @@ file_put_contents($file, $current);
 
 	function setInfo($o, $name, $loc, $status, $filename, $phone){
 		$o->Select("locations", array("id"), array("name" => $loc));
-		$id = $o->ArrayResult();
+		$id = $o->ArrayResult()['id'];
 		$o->Insert("persons", array("name"=>$name, "loc_id" => $id, "status" => $status, "image_name" => $filename, "phone" => $phone));
 	}
 
