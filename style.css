@@ -1,0 +1,248 @@
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 5px;
+}
+
+::selection {
+  background: rgba(52, 152, 219, 0.3);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  margin: auto;
+  background: #FFF;
+  position: relative;
+  font-family: 'Lato',sans-serif;
+}
+
+.left-panel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 25%;
+}
+.left-panel .people-find {
+  width: 90%;
+  height: 430px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin: auto;
+  overflow: scroll;
+  overflow-x: hidden;
+  border-bottom: 2px solid #ddd;
+}
+.left-panel .button-wrapper {
+  width: 90%;
+  margin: auto;
+  margin-top: 20px;
+}
+.left-panel button {
+  outline: none;
+  border: none;
+  border-bottom: 3px solid #DDD;
+  padding-bottom: 5px;
+  font-size: 1em;
+  color: #555;
+  font-weight: 400;
+  background: none;
+  margin-left: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+  display: inline-block;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.left-panel button:hover {
+  border-bottom: 3px solid #e94747;
+}
+
+.right-panel {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 75%;
+  border-left: 1px solid #CCC;
+}
+.right-panel .title {
+  border: none;
+}
+
+.title {
+  width: 90%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: auto;
+  border-bottom: 1px solid #EEE;
+}
+.title p {
+  font-size: 1em;
+  color: #888;
+}
+
+h4 {
+  font-weight: 300;
+  font-size: 2.5em;
+  color: #555;
+  margin: 0;
+}
+
+input[type="text"] {
+  outline: none;
+  border: none;
+  width: 85%;
+  background: #EEE;
+  font-size: 1em;
+  padding: 10px 15px;
+  color: #555;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.stats {
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 1px solid #EEE;
+  border-bottom: 1px solid #EEE;
+}
+.stats .numbers {
+  display: inline-block;
+  width: 120px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.stats .numbers p {
+  font-size: 1em;
+  color: #555;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+}
+.stats .numbers p b {
+  font-weight: 00;
+  font-size: 3em;
+  color: #8599a6;
+}
+
+.menu {
+  width: 90%;
+  margin: auto;
+  margin-top: 40px;
+}
+.menu .menu-option {
+  display: inline-block;
+  width: 30%;
+  height: 280px;
+  border: 1px solid #EEE;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  vertical-align: top;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.menu .menu-option img {
+  width: 100px;
+  height: 100px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+.menu .menu-option p {
+  font-size: 2em;
+  width: 80%;
+  margin: auto;
+  font-weight: 300;
+  text-align: center;
+}
+.menu .menu-option:hover {
+  background: #e8f4f6;
+}
+
+.people-card {
+  width: 280px;
+  height: 90px;
+  border: 1px solid #EEE;
+  margin: 10px;
+  float: left;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.people-card img {
+  height: 65px;
+  width: 65px;
+  border-radius: 100%;
+  position: relative;
+  top: 10px;
+  left: 20px;
+  border: 2px solid #DDD;
+}
+.people-card .text-wrapper {
+  position: relative;
+  top: -60px;
+  left: 130px;
+}
+.people-card .text-wrapper p {
+  font-size: 1em;
+  font-weight: 300;
+  color: #555;
+  line-height: .5;
+}
+.people-card .text-wrapper p b {
+  font-size: 1.2em;
+}
+
+#missing {
+  border-left: 5px solid #888;
+}
+
+#safe {
+  border-left: 5px solid #2dcd69;
+}
+
+#dead {
+  border-left: 5px solid #f73939;
+}
+
+#injured {
+  border-left: 5px solid #eec259;
+}
+
+.back-button {
+  font-size: 1em;
+  color: #555;
+  text-align: center;
+  font-weight: 400;
+  cursor: pointer;
+  display: none;
+  position: relative;
+  top: 150px;
+  padding: 20px;
+  margin: auto;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.back-button:hover {
+  color: #47b6e9;
+}
