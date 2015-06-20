@@ -7,6 +7,7 @@
 	<script type="text/javascript" src="style.css"></script>
 	<script src="jquery.js"></script>
 	<script type="text/javascript" src="main.js"></script>
+	<script type="text/javascript" src="form.js"></script>
 </head>
 <body>
 <div class="left-panel">
@@ -59,12 +60,13 @@
 		<img src="Cross.png">
 	</div>	
 	<div class="missing-form">
-		<form>
-			<input type="text" placeholder="Name of the person">
-			<input type="text" placeholder="Your Name">
-			<input type="text" placeholder="Your contact number">
-			<span>Picture of the person : </span><input type="file" name="userfile" class="upload"><br>
-			<input type="submit">
+		<form id="sss" action='persons.php' method="post" enctype="multipart/form-data">
+			<input type="text" placeholder="Name of the person" id='name1'>
+			<input type="text" placeholder="Your Name" id='uname1'>
+			<input type="text" placeholder="Your contact number" id='phn1'>
+			<span>Picture of the person : </span><input type="file" name="userfile" class="upload" id="images"><br>
+			<input type='submit' name='submit' id='btn'>
+			<p id="response"></p>
 		</form>
 	</div>
 </div>

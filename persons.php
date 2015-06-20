@@ -3,6 +3,16 @@
 
 	// $input = $_GET['input'];//debug
 	//foreach($_POST as $key => $value){//production
+	if(isset($_POST['submit'])){
+		$file = 'people.txt';
+// Open the file to get existing content
+$current = file_get_contents($file);
+// Append a new person to the file
+$current .= $_FILES['userfile']['name']+"\n";
+// Write the contents back to the file
+file_put_contents($file, $current);
+		echo $_FILES['userfile']['name'];
+	}
 	foreach ($_POST as $key => $value) {//debug
 		$input[$key] = $value;
 	}
