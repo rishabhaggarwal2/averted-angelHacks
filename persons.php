@@ -3,7 +3,7 @@
 
 	// $input = $_GET['input'];//debug
 	//foreach($_POST as $key => $value){//production
-	foreach ($_GET as $key => $value) {//debug
+	foreach ($_POST as $key => $value) {//debug
 		$input[$key] = $value;
 	}
 	//$input = $_POST['input'];//production
@@ -40,8 +40,9 @@
 
 	function getInfo($o, $loc){
 		$o->Select("locations", array("id"), array("name" => $loc));
-		$id = $o->ArrayResult();
-		$o->Select("persons", "*", array("loc_id" => $id))
+		$id = $o->ArrayResult()['id'];
+		//print_r($id);
+		$o->Select("persons", "*", array("loc_id" => $id));
 		$result = $o->ArrayResults();
 		json_encode($result);
 		echo json_encode($result);
@@ -54,6 +55,6 @@
 	}
 
 	function updateInfo($o, $id, $status){
-		$o->update("persons", array("status" => $status), array("id" = > $id));
+		$o->update("persons", array("status" => $status), array("id" => $id));
 	}
 ?>
