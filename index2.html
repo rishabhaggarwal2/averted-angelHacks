@@ -14,27 +14,27 @@
 	<center><input type="text" placeholder="Search for people"></center>
 	<div class="people-find">
 	<div class="people">
-			<div class="people-card" id="missing">
+			<div class="people-card missing">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Missing</p></div>
 			</div>
-			<div class="people-card" id="missing">
+			<div class="people-card missing">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Missing</p></div>
 			</div>
-			<div class="people-card" id="safe">
+			<div class="people-card safe">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Safe</p></div>
 			</div>
-			<div class="people-card" id="injured">
+			<div class="people-card injured">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Injured</p></div>
 			</div>
-			<div class="people-card" id="dead">
+			<div class="people-card dead">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Deceased</p></div>
 			</div>
-			<div class="people-card" id="missing">
+			<div class="people-card missing">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Missing</p></div>
 			</div>
 		</div>
 	</div>
-	<div class="button-wrapper"><button>Report Missing</button>&middot;<button>Report Found</button></div>
+	<div class="button-wrapper"><button class="rm">Report Missing</button>&middot;<button class="rf">Report Found</button></div>
 </div>
 <div class="right-panel">
 	<div class="title"><h4>Country Disaster</h4><p>Date of mishap</p></div>
@@ -52,6 +52,53 @@
 		<div class="menu-option"><center><img src="i3.png"></center><p>Advanced Search</p></div>
 	</div>
 </div>
+<div class="black-back"></div>
+<div class="tab-rm">
+	<div class="tab-rm-header">
+		<h5>Report Missing</h5>
+		<img src="Cross.png">
+	</div>	
+	<div class="missing-form">
+		<form>
+			<input type="text" placeholder="Name of the person">
+			<input type="text" placeholder="Your Name">
+			<input type="text" placeholder="Your contact number">
+			<span>Picture of the person : </span><input type="file" name="userfile" class="upload"><br>
+			<input type="submit">
+		</form>
+	</div>
+</div>
+
+<div class="tab-rf">
+	<div class="tab-rf-header">
+		<h5>Report Found</h5>
+		<img src="Cross.png">
+	</div>	
+	<div class="found-form">
+		<form>
+			<input type="text" placeholder="Your Name">
+			<input type="text" placeholder="Person Found">
+			<input type="text" placeholder="Your contact number">
+			<span>Picture of the person : </span><input type="file" name="userfile" class="upload"><br>
+			<input type="submit">
+		</form>
+	</div>
+</div>
+
+<div class="tab-person">
+	<div class="tab-person-header">
+		<h5>Profile</h5>
+		<img src="Cross.png">
+	</div>	
+	<div class="person-profile">
+		<img src="1.jpg">
+		<div class="right-text-wrap">
+			<div class="name">Name of the person</div>
+			<div class="status">Status : Missing</div>
+		</div>
+	</div>
+</div>
+
 <script type="text/javascript">
 	$(document).ready(function(){});
 </script>

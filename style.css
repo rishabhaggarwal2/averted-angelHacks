@@ -175,12 +175,17 @@ input[type="text"] {
   background: #e8f4f6;
 }
 
+.people {
+  width: 100%;
+}
+
 .people-card {
   width: 280px;
   height: 90px;
   border: 1px solid #EEE;
-  margin: 10px;
+  margin: 5px;
   float: left;
+  cursor: pointer;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -ms-transition: all 0.5s ease;
@@ -245,4 +250,130 @@ input[type="text"] {
 
 .back-button:hover {
   color: #47b6e9;
+}
+
+.black-back {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background: #000;
+  opacity: 0;
+  z-index: 1500;
+  display: none;
+}
+
+.tab-rm, .tab-rf, .tab-person {
+  width: 80%;
+  height: 80%;
+  background: #FFF;
+  position: fixed;
+  top: -100%;
+  left: 10%;
+  z-index: 2000;
+}
+
+.tab-rm-header, .tab-rf-header, .tab-person-header {
+  width: 100%;
+  position: relative;
+  top: 0px;
+  height: 60px;
+  background: #e94747;
+}
+.tab-rm-header h5, .tab-rf-header h5, .tab-person-header h5 {
+  position: relative;
+  left: 30px;
+  top: 15px;
+  color: #FFF;
+  font-weight: 700;
+  font-size: 1.3em;
+  display: inline;
+  text-transform: uppercase;
+}
+.tab-rm-header img, .tab-rf-header img, .tab-person-header img {
+  float: right;
+  padding: 15px;
+  top: 15px;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.tab-rm-header img:hover, .tab-rf-header img:hover, .tab-person-header img:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.missing-form form, .found-form form {
+  width: 60%;
+  margin: auto;
+  margin-top: 40px;
+}
+.missing-form input[type="text"], .found-form input[type="text"] {
+  padding: 15px;
+  font-size: 1em;
+  border-radius: 0;
+  background: none;
+  border: 2px solid #EEE;
+  width: 100%;
+  outline: none;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.missing-form input[type="text"]:focus, .found-form input[type="text"]:focus {
+  border: 2px solid #BBB;
+}
+.missing-form span, .found-form span {
+  font-weight: 400;
+  color: #555;
+  padding-right: 30px;
+}
+.missing-form form input.upload, .found-form form input.upload {
+  margin-top: 20px;
+}
+.missing-form input[type="submit"], .found-form input[type="submit"] {
+  margin-top: 20px;
+  padding: 15px 25px;
+  background: #444;
+  font-weight: 400;
+  font-size: 1em;
+  color: #FFF;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.missing-form input[type="submit"]:hover, .found-form input[type="submit"]:hover {
+  background: #333;
+}
+
+.person-profile {
+  width: 60%;
+  margin: auto;
+  margin-top: 50px;
+}
+.person-profile img {
+  float: left;
+  height: 200px;
+  width: 200px;
+}
+.person-profile .right-text-wrap {
+  float: right;
+  right: 0px;
+  font-weight: 300;
+  color: #555;
+  font-size: 1.3em;
+  line-height: 1.5;
+}
+.person-profile .right-text-wrap .name {
+  font-weight: 400;
+  font-size: 1.7em;
 }
