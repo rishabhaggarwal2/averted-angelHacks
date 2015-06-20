@@ -262,22 +262,22 @@ input[type="text"]
 	}
 }
 
-#missing
+.missing
 {
 	border-left: 5px solid #888;	
 }
 
-#safe
+.safe
 {
 	border-left: 5px solid #2dcd69;
 }
 
-#dead
+.dead
 {
 	border-left: 5px solid #f73939;
 }
 
-#injured
+.injured
 {
 	border-left: 5px solid #eec259;
 }

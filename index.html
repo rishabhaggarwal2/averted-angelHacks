@@ -156,11 +156,8 @@
           });
         }, 1000/24);
 
-      cityCirclesHidden.forEach(function(cityCircle){
-        google.maps.event.addListener(cityCircle, 'click', function() {
-          alert(cityCircle.getPosition());
-        });
-        google.maps.event.addListener(cityCircle, 'touchstart', function() {
+        cityCirclesHidden.forEach(function(cityCircle){
+          google.maps.event.addListener(cityCircle, 'click', function() {
           alert(cityCircle.getPosition());
         });
       });
