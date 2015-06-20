@@ -1,0 +1,177 @@
+<html>
+  <head>
+    <style type="text/css">
+      html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+    </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9nlvLzb3aKmJWxmR405OAn3XBnbyr4gI">
+    </script>
+    <script type="text/javascript">
+
+        cityCircleAnimations = [];
+        cityCircles = [];
+        cityCirclesHidden = [];
+      function initialize() {
+        var styles = [
+          {
+            featureType: 'all',
+            elementType: 'geometry',
+            stylers: [
+              {color: '#dddddd'}
+            ]
+          },
+          {
+            featureType: 'all',
+            elementType: 'labels',
+            stylers: [
+              {visibility: 'off'}
+            ]
+          },
+          {
+              featureType: 'landscape',
+              elementType: 'geometry.fill',
+              stylers: [
+                { color: "#CCCCCC" }
+              ]
+            },
+          {
+              featureType: 'water',
+              elementType: 'geometry.fill',
+              stylers: [
+                { color: "#EEEEEE" }
+              ]
+            },
+            {
+              featureType: 'all',
+              elementType: 'geometry.stroke',
+              stylers: [
+                { visibility: 'off' }
+              ]
+            },
+            {
+                featureType: 'administrative',
+                elementType: 'geometry',
+                stylers: [
+                  { visibility: 'off' }
+                ]
+              },
+          {
+              featureType: 'administrative.country',
+              elementType: 'geometry.stroke',
+              stylers: [
+                { color: '#b7b7b7' },
+                { visibility: 'on' }
+              ]
+            }
+        ];
+
+        
+        var mapOptions = {
+          center: { lat: 0, lng: 0},
+          zoom: 2,
+          disableDefaultUI: true,
+          panControl: true,
+          zoomControl: true,
+        };
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+
+        map.setOptions({styles: styles});
+
+        var populationOptions = {
+              path: google.maps.SymbolPath.CIRCLE,
+              strokeColor: '#df6161',
+              strokeOpacity: 1,
+              strokeWeight: 2,
+              fillColor: '#f77373',
+              fillOpacity: 0.3,
+              map: map,
+              scale: 20.0
+        };
+
+        var populationOptions2 = {
+              path: google.maps.SymbolPath.CIRCLE,
+              strokeColor: '#df6161',
+              strokeOpacity: 1,
+              strokeWeight: 2,
+              fillColor: '#f77373',
+              fillOpacity: 0,
+              map: map,
+              scale: 20.0
+        };
+        var populationOptions3 = {
+              path: google.maps.SymbolPath.CIRCLE,
+              strokeColor: '#df6161',
+              strokeOpacity: 0,
+              strokeWeight: 2,
+              fillColor: '#f77373',
+              fillOpacity: 0,
+              map: map,
+              scale: 20.0
+        };
+
+
+        locations = [{lat: 34, lng: -118}, {lat:60, lng:50}];
+
+        locations.forEach(function(location){
+
+          cityCircle2 = new google.maps.Marker({
+            icon: populationOptions2,
+            position: location
+          });
+          cityCircle2.setMap(map);
+
+          cityCircle= new google.maps.Marker({
+            icon: populationOptions,
+            position: location
+          });
+          cityCircle.setMap(map);
+
+          cityCircle3= new google.maps.Marker({
+            icon: populationOptions3,
+            position: location
+          });
+          cityCircle3.setMap(map);
+
+          cityCirclesHidden.push(cityCircle3);
+          cityCircles.push(cityCircle);
+          cityCircleAnimations.push(cityCircle2);
+        });
+
+        window.setInterval(function(){
+          cityCircleAnimations.forEach(function(cityCircle){
+            if(populationOptions2.scale < 40){
+            populationOptions2.scale += 1;
+            populationOptions2.strokeOpacity = (40-populationOptions2.scale)/20;
+            cityCircle.icon = populationOptions2;
+            cityCircle.setMap(map);
+            }
+            else{
+              populationOptions2.scale = 20;
+              // populationOptions2.strokeOpacity = 1;
+            }
+          });
+          cityCirclesHidden.forEach(function(cityCircle){
+            cityCircle.setMap(map);
+          });
+        }, 1000/24);
+
+        cityCirclesHidden.forEach(function(cityCircle){
+          google.maps.event.addListener(cityCircle, 'click', function() {
+          alert(cityCircle.getPosition());
+        });
+      });
+
+
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+      
+      
+
+    </script>
+  </head>
+  <body>
+<div id="map-canvas"></div>
+  </body>
+</html>
