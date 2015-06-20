@@ -14,7 +14,7 @@
 	<center><input type="text" placeholder="Search for people"></center>
 	<div class="people-find">
 	<div class="people">
-			<div class="people-card missing">
+			<!-- <div class="people-card missing">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Missing</p></div>
 			</div>
 			<div class="people-card missing">
@@ -31,13 +31,13 @@
 			</div>
 			<div class="people-card missing">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Missing</p></div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 	<div class="button-wrapper"><button class="rm">Report Missing</button>&middot;<button class="rf">Report Found</button></div>
 </div>
 <div class="right-panel">
-	<div class="title"><h4 id="country">Country Disaster</h4><p>Date of mishap</p></div>
+	<div class="title"><h4 id="country">Country Disaster</h4><p id='date'>Date of mishap</p></div>
 	<div class="stats">
 	<center><div class="num-wrapper" id="people">
 		<div class="numbers"><p><b>21</b></p><p>Missing</p></div>
@@ -93,9 +93,9 @@
 	<div class="person-profile">
 		<img src="1.jpg">
 		<div class="right-text-wrap">
-			<div class="name">Name of the person</div>
-			<div class="status">Status : Missing</div>
-			<div class="Contact"></div>
+			<div class="name" id='tab-name'>Name of the person</div>
+			<div class="status" id='tab-status'>Status : Missing</div>
+			<div class="Contact" id='tab-phone'></div>
 		</div>
 	</div>
 </div>

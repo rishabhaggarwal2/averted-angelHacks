@@ -1,26 +1,30 @@
 $(document).ready(function(){
 	//AKshay
 	var country;
+	var list;
 	$.post("http://localhost/averted-angelhacks/location.php",{input: "getmapdata"}, function(data, status){
 		var ar = $.parseJSON(data);
 		// console.log(ar);
     	$("#country").html(ar[0]['name']);
+    	$("#date").html(ar[0]['date']);
     	country = ar[0]['name'];	
-    	alert(country);
+    	// alert(country);
     	$.post("http://localhost/averted-angelhacks/persons.php",{input: "getpersons", loc: country}, function(data){
-    		console.log(data);
+    		// console.log(data);
 			var ar = $.parseJSON(data);
+			list = ar;
 			$.each(ar, function(sid, arr){
 				status = arr['status'];
 				name = arr['name'];
 
-				$(".people").html($(".people").html() + '<div class="people-card '+status+'"><img src="1.jpg"><div class="text-wrapper"><p><b>'+name+'</b></p><p>Status : '+status+'</p></div></div>');
+				$(".people").html($(".people").html() + '<div class="people-card '+status+'" id="'+(arr['id']-1)+'"><img src="1.jpg"><div class="text-wrapper"><p><b>'+name+'</b></p><p>Status : '+status+'</p></div></div>');
 			});
 		});
     });
-	
+
 	//Abhinav
 	var x = $(window).height();
+	console.log(x);
 	$('.left-panel').css("height",x);
 	$('.right-panel').css("height",x);
 
@@ -85,18 +89,36 @@ $(document).ready(function(){
 	});
 
 	/*tab down*/
-	$('.people-card').click(function(){
+	$(document).on( 'click', '.people-card', function(){
 		$('.black-back').css("display","block");
 		$('.black-back').animate({opacity:".8"},500);
 		$('.tab-person').animate({top:"10%"},500);
-	});
+		var id = $(this).attr('id');
+		console.log($(this) );
+		$('#tab-name').html(list[id]['name']);
+		$('#tab-phone').html("Phone: "+list[id]['phone']);
+		$('#tab-status').html("Status: "+list[id]['status']);
+	} );
+	// $('.people-card').click(function(){
+	// 	console.log(":)");
+	// 	$('.black-back').css("display","block");
+	// 	$('.black-back').animate({opacity:".8"},500);
+	// 	$('.tab-person').animate({top:"10%"},500);
+	// });
 
 	/*Close Button*/
-	$('.tab-person-header img').click(function(){
+	$(document).on( 'click', '.tab-person-header img', function(){
 		$('.tab-person').animate({top:"-100%"},500);
 		$('.black-back').animate({opacity:"0"},500);
 		setTimeout(function(){
 			$('.black-back').css("display","none");
 		},500);
-	});
+	} );
+	// $('.tab-person-header img').click(function(){
+	// 	$('.tab-person').animate({top:"-100%"},500);
+	// 	$('.black-back').animate({opacity:"0"},500);
+	// 	setTimeout(function(){
+	// 		$('.black-back').css("display","none");
+	// 	},500);
+	// });
 });

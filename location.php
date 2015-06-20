@@ -23,7 +23,7 @@
 
 	function sendMapData($o){
 
-		$o->Select("locations", array('name', 'lat', 'long'));
+		$o->Select("locations", array('name', 'lat', 'long', 'date'));
 		$results = $o->ArrayResults();
 		json_encode($results);
 		echo json_encode($results);
