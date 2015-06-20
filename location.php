@@ -1,8 +1,8 @@
 <?php 
 	require("mysql.class.php");
 
-	$input = $_GET['input'];//debug
-	//$input = $_POST['input'];//production
+	// $input = $_GET['input'];//debug
+	$input = $_POST['input'];//production
 	global $o;
 	$o = new MySQL();
 	// print_r($results);
@@ -23,7 +23,7 @@
 
 	function sendMapData($o){
 
-		$o->Select("locations", array('name', 'lat', 'long'));
+		$o->Select("locations", array('name', 'lat', 'long', 'date'));
 		$results = $o->ArrayResults();
 		json_encode($results);
 		echo json_encode($results);

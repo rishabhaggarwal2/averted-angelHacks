@@ -15,30 +15,30 @@
 	<center><input type="text" placeholder="Search for people"></center>
 	<div class="people-find">
 	<div class="people">
-			<div class="people-card" id="missing">
+			<!-- <div class="people-card missing">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Missing</p></div>
 			</div>
-			<div class="people-card" id="missing">
+			<div class="people-card missing">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Missing</p></div>
 			</div>
-			<div class="people-card" id="safe">
+			<div class="people-card safe">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Safe</p></div>
 			</div>
-			<div class="people-card" id="injured">
+			<div class="people-card injured">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Injured</p></div>
 			</div>
-			<div class="people-card" id="dead">
+			<div class="people-card dead">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Deceased</p></div>
 			</div>
-			<div class="people-card" id="missing">
+			<div class="people-card missing">
 				<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Missing</p></div>
-			</div>
+			</div> -->
 		</div>
 	</div>
-	<div class="button-wrapper"><button>Report Missing</button>&middot;<button>Report Found</button></div>
+	<div class="button-wrapper"><button class="rm">Report Missing</button>&middot;<button class="rf">Report Found</button></div>
 </div>
 <div class="right-panel">
-	<div class="title"><h4>Country Disaster</h4><p>Date of mishap</p></div>
+	<div class="title"><h4 id="country">Country Disaster</h4><p id='date'>Date of mishap</p></div>
 	<div class="stats">
 	<center><div class="num-wrapper" id="people">
 		<div class="numbers"><p><b>21</b></p><p>Missing</p></div>
@@ -53,8 +53,77 @@
 		<div class="menu-option"><center><img src="i3.png"></center><p>Advanced Search</p></div>
 	</div>
 </div>
+<div class="black-back"></div>
+<div class="tab-rm">
+	<div class="tab-rm-header">
+		<h5>Report Missing</h5>
+		<img src="Cross.png">
+	</div>	
+	<div class="missing-form">
+		<form id="sss"  method="post" enctype="multipart/form-data">
+			<input type="text" name='name' placeholder="Name of the person" id='name1'>
+			<!-- <input type="text" name='status' placeholder="Your Name" id='uname1'> -->
+			<input type="text" name='phone' placeholder="Your contact number" id='phn1'>
+			<span>Picture of the person : </span><input type="file" name="userfile" class="upload" id="images"><br>
+			<!-- <input type="text" name='loc' value='Nepal' style="display:none"> -->
+			<input type="text" name='input' value='setpersons' style="display:none" id='rm-in'>
+			<input type='submit' name='submit' id='btn'>
+			<p id="response"></p>
+		</form>
+	</div>
+</div>
+
+<div class="tab-rf">
+	<div class="tab-rf-header">
+		<h5>Report Found</h5>
+		<img src="Cross.png">
+	</div>	
+	<div class="found-form">
+		<form>
+			<input type="text" placeholder="Your Name">
+			<input type="text" placeholder="Person Found">
+			<input type="text" placeholder="Your contact number">
+			<span>Picture of the person : </span><input type="file" name="userfile" class="upload"><br>
+			<!-- <input type="submit"> -->
+		</form>
+	</div>
+</div>
+
+<div class="tab-person">
+	<div class="tab-person-header">
+		<h5>Profile</h5>
+		<img src="Cross.png">
+	</div>	
+	<div class="person-profile">
+		<img src="1.jpg" id="tab-img">
+		<div class="right-text-wrap">
+			<div class="name" id='tab-name'>Name of the person</div>
+			<div class="status" id='tab-status'>Status : Missing</div>
+			<div class="Contact" id='tab-phone'></div>
+			<a href="#" id="well">All Well</a><a href="#" id="injured">Injured</a><a href="#" id="deceased">Deceased</a>
+		</div>
+	</div>
+</div>
+
 <script type="text/javascript">
-	$(document).ready(function(){});
+	// $(document).ready(function(){
+		
+	// });
+					// var div = document.createElement('div');
+					// div.addClass("people-card");
+					// div.addClass(arr['status']);
+					// div.attr('id', sid);
+
+				// <div class="people-card missing">
+				// 	<img src="1.jpg"><div class="text-wrapper"><p><b>Name</b></p><p>Status : Missing</p></div>
+				// </div>
+					// var img = div.createElement('img');
+					// if(arr['image_name'] != "")
+					// 	img.src = 'upload/' + arr['image_name'];
+					// else
+					// 	img.src = "1.jpg";
+
+
 </script>
 </body>
 </html>
