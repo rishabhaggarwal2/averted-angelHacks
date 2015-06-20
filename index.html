@@ -110,51 +110,38 @@
               scale: 20.0
         };
 
-
+        var image = 'lul.gif'
         locations = [{lat: 34, lng: -118}, {lat:60, lng:50}];
 
         locations.forEach(function(location){
 
           cityCircle2 = new google.maps.Marker({
-            icon: populationOptions2,
-            position: location
+            icon: image,
+            position: location,
+            optimized: false
           });
           cityCircle2.setMap(map);
 
-          cityCircle= new google.maps.Marker({
-            icon: populationOptions,
-            position: location
-          });
-          cityCircle.setMap(map);
-
-          cityCircle3= new google.maps.Marker({
-            icon: populationOptions3,
-            position: location
-          });
-          cityCircle3.setMap(map);
-
-          cityCirclesHidden.push(cityCircle3);
-          cityCircles.push(cityCircle);
-          cityCircleAnimations.push(cityCircle2);
+          cityCirclesHidden.push(cityCircle2);
         });
 
-        window.setInterval(function(){
-          cityCircleAnimations.forEach(function(cityCircle){
-            if(populationOptions2.scale < 40){
-            populationOptions2.scale += 1;
-            populationOptions2.strokeOpacity = (40-populationOptions2.scale)/20;
-            cityCircle.icon = populationOptions2;
-            cityCircle.setMap(map);
-            }
-            else{
-              populationOptions2.scale = 20;
-              // populationOptions2.strokeOpacity = 1;
-            }
-          });
-          cityCirclesHidden.forEach(function(cityCircle){
-            cityCircle.setMap(map);
-          });
-        }, 1000/24);
+        // window.setInterval(function(){
+        //   cityCircleAnimations.forEach(function(cityCircle){
+        //     if(populationOptions2.scale < 40){
+        //     populationOptions2.scale += 1;
+        //     populationOptions2.strokeOpacity = (40-populationOptions2.scale)/20;
+        //     cityCircle.icon = populationOptions2;
+        //     cityCircle.setMap(map);
+        //     }
+        //     else{
+        //       populationOptions2.scale = 20;
+        //       // populationOptions2.strokeOpacity = 1;
+        //     }
+        //   });
+        //   cityCirclesHidden.forEach(function(cityCircle){
+        //     cityCircle.setMap(map);
+        //   });
+        // }, 1000/24);
 
         cityCirclesHidden.forEach(function(cityCircle){
           google.maps.event.addListener(cityCircle, 'click', function() {
