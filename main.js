@@ -1,4 +1,25 @@
 $(document).ready(function(){
+	//AKshay
+	var country;
+	$.post("http://localhost/averted-angelhacks/location.php",{input: "getmapdata"}, function(data, status){
+		var ar = $.parseJSON(data);
+		// console.log(ar);
+    	$("#country").html(ar[0]['name']);
+    	country = ar[0]['name'];	
+    	alert(country);
+    	$.post("http://localhost/averted-angelhacks/persons.php",{input: "getpersons", loc: country}, function(data){
+    		console.log(data);
+			var ar = $.parseJSON(data);
+			$.each(ar, function(sid, arr){
+				status = arr['status'];
+				name = arr['name'];
+
+				$(".people").html($(".people").html() + '<div class="people-card '+status+'"><img src="1.jpg"><div class="text-wrapper"><p><b>'+name+'</b></p><p>Status : '+status+'</p></div></div>');
+			});
+		});
+    });
+	
+	//Abhinav
 	var x = $(window).height();
 	$('.left-panel').css("height",x);
 	$('.right-panel').css("height",x);
