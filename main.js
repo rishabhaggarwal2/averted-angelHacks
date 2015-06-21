@@ -2,6 +2,9 @@ $(document).ready(function(){
 	//AKshay
 	var country;
 	var list = {};
+	var missing = 0;
+	var found = 0;
+	resetNums();
 	$("#search").keydown(function(e){
 		console.log(e.which);
 		if(e.which){
@@ -29,7 +32,15 @@ $(document).ready(function(){
 		}
 	});
 	//$("#sss").ajaxForm(function(){alert(":D")});
+	$("#cake").on('submit',function(e){
+		e.preventDefault();
+		str = $("#fil2").val();
+		var pieces = str.split(/[\s,]+/);
+		alert(pieces[pieces.length-1]);
+	});
 	$("#sss").on('submit',(function(e) {
+	missing++;
+	resetNums();
 	e.preventDefault();
 	// $("#message").empty();
 	// $('#loading').show();
@@ -46,13 +57,28 @@ $(document).ready(function(){
 	processData:false,        // To send DOMDocument or non processed data file it is set to false
 	success: function(data)   // A function to be called if request succeeds
 	{
+		formd.append("key", '3374fa58c672fcaad8dab979f7687397');
+		formd.append("action", 'upload');
+		$.ajax({
+	url: "http://ultraimg.com/api/1/post/", // Url to which the request is send
+	type: "POST",             // Type of request to be send, called as method
+	data: formd, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+	contentType: false,       // The content type used when sending data to the server.
+	cache: false,             // To unable request pages to be cached
+	processData:false,        // To send DOMDocument or non processed data file it is set to false
+	success: function(data)   // A function to be called if request succeeds
+	{
+		console.log(data);
+	},
+	
+	});
 		console.log(data);
 		var client = new FCClientJS("af0351596bba4065b1b00785a4f3ecf4", "879cb3ac7e324d3a8ca15d68ed586f54");
 		var options = new Object();
 		options.detect_all_feature_points = true;
 		options.namespace = "thukral";
 		var person = $.parseJSON(data);
-		client.facesDetect(person[0], null, options, function(data){
+		/*client.facesDetect(, null, options, function(data){
 			console.log("detected");
 			var tid = data.photos[0].tags[0].tid;
 			client.tagsSave(tid, person[1]+"@thukral", options, function(){
@@ -61,14 +87,14 @@ $(document).ready(function(){
 					console.log("done");
 				});
 			});
-		});
+		});*/
 		$('.tab-rm').animate({top:"-100%"},500);
 		$('.black-back').animate({opacity:"0"},500);
 		setTimeout(function(){
 			$('.black-back').css("display","none");
 		},500);
 		$(".people").html("");
-		$.post("http://localhost/averted-angelhacks/persons.php",{input: "getpersons", loc: country}, function(data){
+		$.post("persons.php",{input: "getpersons", loc: country}, function(data){
     		console.log(data);
 			var ar = $.parseJSON(data);
 			$.each(ar, function(sid, arr){
@@ -85,6 +111,7 @@ $(document).ready(function(){
 
 				$(".people").html($(".people").html() + '<div class="people-card '+status+'" id="'+(arr['id']-1)+'"><img src="'+img+'"><div class="text-wrapper"><p><b>'+name+'</b></p><p>Status : '+status+'</p></div></div>');
 			});
+					resetNums();
 		});
 		$("input").val("");
 		$("#rm-in").val("setpersons");
@@ -93,14 +120,14 @@ $(document).ready(function(){
 	}
 	});
 	}));
-	$.post("http://localhost/averted-angelhacks/location.php",{input: "getmapdata"}, function(data, status){
+	$.post("location.php",{input: "getmapdata"}, function(data, status){
 		var ar = $.parseJSON(data);
 		// console.log(ar);
     	$("#country").html(ar[0]['name']);
     	$("#date").html(ar[0]['date']);
     	country = ar[0]['name'];	
     	// alert(country);
-    	$.post("http://localhost/averted-angelhacks/persons.php",{input: "getpersons", loc: country}, function(data){
+    	$.post("persons.php",{input: "getpersons", loc: country}, function(data){
     		console.log(data);
 			var ar = $.parseJSON(data);
 			$.each(ar, function(sid, arr){
@@ -114,12 +141,15 @@ $(document).ready(function(){
 				img = "uploads/" + arr['image_name'];
 				if(img == "uploads/" + "")
 					img = "1.jpg";
-
+				if(status == "safe" || status == "injured" || status == "deceased")
+					found++;
+				else
+					missing++;
+				resetNums();
 				$(".people").html($(".people").html() + '<div class="people-card '+status+'" id="'+(arr['id']-1)+'"><img src="'+img+'"><div class="text-wrapper"><p><b>'+name+'</b></p><p>Status : '+status+'</p></div></div>');
 			});
 		});
     });
-
 
 	//Abhinav
 	var x = $(window).height();
@@ -172,7 +202,7 @@ $(document).ready(function(){
 	});
 
 	/*tab down*/
-	$('.button-wrapper .rf').click(function(){
+	$('#adv').click(function(){
 		$('.black-back').css("display","block");
 		$('.black-back').animate({opacity:".8"},500);
 		$('.tab-rf').animate({top:"10%"},500);
@@ -210,10 +240,13 @@ $(document).ready(function(){
     	r = confirm("Are you sure?");
     	if(r == true){
     		// alert("updated : "+$(this).attr('peep'));
+    		found++;
+    		missing--;
+    		resetNums();
     		idd = $(this).attr('peep');
     		idd = parseInt(idd) + 1;
     		// alert(idd);
-    		$.post("http://localhost/averted-angelhacks/persons.php",{input:'update', id: idd, status: 'safe'}, function(data){
+    		$.post("persons.php",{input:'update', id: idd, status: 'safe'}, function(data){
     			// alert(data);
     			$('.tab-person').animate({top:"-100%"},500);
 				$('.black-back').animate({opacity:"0"},500);
@@ -221,7 +254,7 @@ $(document).ready(function(){
 					$('.black-back').css("display","none");
 				},500);
 				$(".people").html("");
-				$.post("http://localhost/averted-angelhacks/persons.php",{input: "getpersons", loc: country}, function(data){
+				$.post("persons.php",{input: "getpersons", loc: country}, function(data){
 		    		console.log(data);
 					var ar = $.parseJSON(data);
 					$.each(ar, function(sid, arr){
@@ -238,6 +271,7 @@ $(document).ready(function(){
 
 						$(".people").html($(".people").html() + '<div class="people-card '+status+'" id="'+(arr['id']-1)+'"><img src="'+img+'"><div class="text-wrapper"><p><b>'+name+'</b></p><p>Status : '+status+'</p></div></div>');
 					});
+					resetNums();
 				});
     		});
     	}
@@ -246,10 +280,13 @@ $(document).ready(function(){
     	r = confirm("Are you sure?");
     	if(r == true){
     		// alert("updated : "+$(this).attr('peep'));
+    		found++;
+    		missing--;
+    		resetNums();
     		idd = $(this).attr('peep');
     		idd = parseInt(idd) + 1;
     		// alert(idd);
-    		$.post("http://localhost/averted-angelhacks/persons.php",{input:'update', id: idd, status: 'injured'}, function(data){
+    		$.post("persons.php",{input:'update', id: idd, status: 'injured'}, function(data){
     			// alert(data);
     			$('.tab-person').animate({top:"-100%"},500);
 				$('.black-back').animate({opacity:"0"},500);
@@ -257,7 +294,7 @@ $(document).ready(function(){
 					$('.black-back').css("display","none");
 				},500);
 				$(".people").html("");
-				$.post("http://localhost/averted-angelhacks/persons.php",{input: "getpersons", loc: country}, function(data){
+				$.post("persons.php",{input: "getpersons", loc: country}, function(data){
 		    		console.log(data);
 					var ar = $.parseJSON(data);
 					$.each(ar, function(sid, arr){
@@ -274,6 +311,7 @@ $(document).ready(function(){
 
 						$(".people").html($(".people").html() + '<div class="people-card '+status+'" id="'+(arr['id']-1)+'"><img src="'+img+'"><div class="text-wrapper"><p><b>'+name+'</b></p><p>Status : '+status+'</p></div></div>');
 					});
+					resetNums();
 				});
     		});
     	}
@@ -282,10 +320,12 @@ $(document).ready(function(){
     	r = confirm("Are you sure?");
     	if(r == true){
     		// alert("updated : "+$(this).attr('peep'));
+    		found++;
+    		missing--;
     		idd = $(this).attr('peep');
     		idd = parseInt(idd) + 1;
     		// alert(idd);
-    		$.post("http://localhost/averted-angelhacks/persons.php",{input:'update', id: idd, status: 'deceased'}, function(data){
+    		$.post("persons.php",{input:'update', id: idd, status: 'deceased'}, function(data){
     			// alert(data);
     			$('.tab-person').animate({top:"-100%"},500);
 				$('.black-back').animate({opacity:"0"},500);
@@ -293,7 +333,7 @@ $(document).ready(function(){
 					$('.black-back').css("display","none");
 				},500);
 				$(".people").html("");
-				$.post("http://localhost/averted-angelhacks/persons.php",{input: "getpersons", loc: country}, function(data){
+				$.post("persons.php",{input: "getpersons", loc: country}, function(data){
 		    		console.log(data);
 					var ar = $.parseJSON(data);
 					$.each(ar, function(sid, arr){
@@ -310,6 +350,7 @@ $(document).ready(function(){
 
 						$(".people").html($(".people").html() + '<div class="people-card '+status+'" id="'+(arr['id']-1)+'"><img src="'+img+'"><div class="text-wrapper"><p><b>'+name+'</b></p><p>Status : '+status+'</p></div></div>');
 					});
+					resetNums();
 				});
     		});
     	}
@@ -329,6 +370,11 @@ $(document).ready(function(){
 			$('.black-back').css("display","none");
 		},500);
 	} );
+
+	function resetNums(){
+		var mis = $("#missing").html(missing);
+		var fou = $("#found").html(found);
+	}
 	// $('.tab-person-header img').click(function(){
 	// 	$('.tab-person').animate({top:"-100%"},500);
 	// 	$('.black-back').animate({opacity:"0"},500);

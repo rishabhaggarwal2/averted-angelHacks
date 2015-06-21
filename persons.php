@@ -64,8 +64,11 @@
 		$o->Select("locations", array("id"), array("name" => $loc));
 		$id = $o->ArrayResult()['id'];
 		$o->Insert("persons", array("name"=>$name, "loc_id" => $id, "status" => $status, "image_name" => $filename, "phone" => $phone));
-		// $a = {("uploads/"+$filename), $name};
-		// echo json_encode($r);
+		//$arrayName = array('' => , );
+		$b = $filename;
+		$a[0] = $b;
+		$a[1] = $name;
+		echo json_encode($a);
 	}
 
 	function updateInfo($o, $id, $status){
