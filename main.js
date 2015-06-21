@@ -2,34 +2,32 @@ $(document).ready(function(){
 	//AKshay
 	var country;
 	var list = {};
-// 	$('#btn').on('click', function() {
-//     var file_data = $('#images').prop('files')[0];   
-//     var form_data = new FormData();                  
-//     form_data.append('file', file_data);
-//     console.log(form_data);                             
-//     $.ajax({
-//                 url: 'persons.php', // point to server-side PHP script 
-//                 dataType: 'text',  // what to expect back from the PHP script, if anything
-//                 cache: false,
-//                 contentType: false,
-//                 processData: false,
-//                 data: form_data,                         
-//                 type: 'post',
-//                 success: function(php_script_response){
-//                     alert(php_script_response); // display response from the PHP script, if any
-//                 }
-//      });
-// });
-// $("#sss").submit(function() {
-
-//     var formData = new FormData($(this)[0]);
-
-//     $.post($(this).attr("action"), formData, function(data) {
-//         alert(data);
-//     });
-
-//     return false;
-// });
+	$("#search").keydown(function(e){
+		console.log(e.which);
+		if(e.which){
+			$(".people").html("");
+			if($("#search").val().length > 0){
+				var comp = $("#search").val();
+				$.each(list, function(index, arr){
+					if((arr['name']).toLowerCase().search(comp) > -1){
+						img = "uploads/" + arr['image_name'];
+						if(img == "uploads/" + "")
+							img = "1.jpg";
+						$(".people").html($(".people").html() + '<div class="people-card '+arr['status']+'" id="'+(arr['id']-1)+'"><img src="'+img+'"><div class="text-wrapper"><p><b>'+arr['name']+'</b></p><p>Status : '+arr['status']+'</p></div></div>');
+					}
+				});
+			}else{
+				$.each(list, function(index, arr){
+					// if((arr['name']).toLowerCase().search(comp) > -1){
+						img = "uploads/" + arr['image_name'];
+						if(img == "uploads/" + "")
+							img = "1.jpg";
+						$(".people").html($(".people").html() + '<div class="people-card '+arr['status']+'" id="'+(arr['id']-1)+'"><img src="'+img+'"><div class="text-wrapper"><p><b>'+arr['name']+'</b></p><p>Status : '+arr['status']+'</p></div></div>');
+					// }
+				});
+			}
+		}
+	});
 	//$("#sss").ajaxForm(function(){alert(":D")});
 	$("#sss").on('submit',(function(e) {
 	e.preventDefault();
@@ -37,6 +35,7 @@ $(document).ready(function(){
 	// $('#loading').show();
 	console.log("asd");
 	formd = new FormData(this);
+	formd.append("loc", country);
 	console.log(formd);
 	$.ajax({
 	url: "persons.php", // Url to which the request is send
@@ -121,7 +120,6 @@ $(document).ready(function(){
 		});
     });
 
-    $("#well").click();
 
 	//Abhinav
 	var x = $(window).height();
@@ -195,8 +193,11 @@ $(document).ready(function(){
 		$('.black-back').animate({opacity:".8"},500);
 		$('.tab-person').animate({top:"10%"},500);
 		var id = $(this).attr('id');
-		console.log($(this) );
+		console.log($(this));
 		$('#tab-name').html(list[id]['name']);
+		$('#safe').attr('peep', id);
+		$('#injured').attr('peep', id);
+		$('#deceased').attr('peep', id);
 		$('#tab-phone').html("Phone: "+list[id]['phone']);
 		$('#tab-status').html("Status: "+list[id]['status']);
 				img = "uploads/" + list[id]['image_name'];
@@ -204,6 +205,115 @@ $(document).ready(function(){
 					img = "1.jpg";
 				$("#tab-img").attr("src", img);
 	} );
+
+    $(document).on('click', '#safe', function(){
+    	r = confirm("Are you sure?");
+    	if(r == true){
+    		// alert("updated : "+$(this).attr('peep'));
+    		idd = $(this).attr('peep');
+    		idd = parseInt(idd) + 1;
+    		// alert(idd);
+    		$.post("http://localhost/averted-angelhacks/persons.php",{input:'update', id: idd, status: 'safe'}, function(data){
+    			// alert(data);
+    			$('.tab-person').animate({top:"-100%"},500);
+				$('.black-back').animate({opacity:"0"},500);
+				setTimeout(function(){
+					$('.black-back').css("display","none");
+				},500);
+				$(".people").html("");
+				$.post("http://localhost/averted-angelhacks/persons.php",{input: "getpersons", loc: country}, function(data){
+		    		console.log(data);
+					var ar = $.parseJSON(data);
+					$.each(ar, function(sid, arr){
+						console.log(arr);
+						list[arr['id']-1] = ar[sid];
+					});
+					// list = ar;
+					$.each(ar, function(sid, arr){
+						status = arr['status'];
+						name = arr['name'];
+						img = "uploads/" + arr['image_name'];
+						if(img == "uploads/" + "")
+							img = "1.jpg";
+
+						$(".people").html($(".people").html() + '<div class="people-card '+status+'" id="'+(arr['id']-1)+'"><img src="'+img+'"><div class="text-wrapper"><p><b>'+name+'</b></p><p>Status : '+status+'</p></div></div>');
+					});
+				});
+    		});
+    	}
+    });
+	$(document).on('click', '#injured', function(){
+    	r = confirm("Are you sure?");
+    	if(r == true){
+    		// alert("updated : "+$(this).attr('peep'));
+    		idd = $(this).attr('peep');
+    		idd = parseInt(idd) + 1;
+    		// alert(idd);
+    		$.post("http://localhost/averted-angelhacks/persons.php",{input:'update', id: idd, status: 'injured'}, function(data){
+    			// alert(data);
+    			$('.tab-person').animate({top:"-100%"},500);
+				$('.black-back').animate({opacity:"0"},500);
+				setTimeout(function(){
+					$('.black-back').css("display","none");
+				},500);
+				$(".people").html("");
+				$.post("http://localhost/averted-angelhacks/persons.php",{input: "getpersons", loc: country}, function(data){
+		    		console.log(data);
+					var ar = $.parseJSON(data);
+					$.each(ar, function(sid, arr){
+						console.log(arr);
+						list[arr['id']-1] = ar[sid];
+					});
+					// list = ar;
+					$.each(ar, function(sid, arr){
+						status = arr['status'];
+						name = arr['name'];
+						img = "uploads/" + arr['image_name'];
+						if(img == "uploads/" + "")
+							img = "1.jpg";
+
+						$(".people").html($(".people").html() + '<div class="people-card '+status+'" id="'+(arr['id']-1)+'"><img src="'+img+'"><div class="text-wrapper"><p><b>'+name+'</b></p><p>Status : '+status+'</p></div></div>');
+					});
+				});
+    		});
+    	}
+    });
+	$(document).on('click', '#deceased', function(){
+    	r = confirm("Are you sure?");
+    	if(r == true){
+    		// alert("updated : "+$(this).attr('peep'));
+    		idd = $(this).attr('peep');
+    		idd = parseInt(idd) + 1;
+    		// alert(idd);
+    		$.post("http://localhost/averted-angelhacks/persons.php",{input:'update', id: idd, status: 'deceased'}, function(data){
+    			// alert(data);
+    			$('.tab-person').animate({top:"-100%"},500);
+				$('.black-back').animate({opacity:"0"},500);
+				setTimeout(function(){
+					$('.black-back').css("display","none");
+				},500);
+				$(".people").html("");
+				$.post("http://localhost/averted-angelhacks/persons.php",{input: "getpersons", loc: country}, function(data){
+		    		console.log(data);
+					var ar = $.parseJSON(data);
+					$.each(ar, function(sid, arr){
+						console.log(arr);
+						list[arr['id']-1] = ar[sid];
+					});
+					// list = ar;
+					$.each(ar, function(sid, arr){
+						status = arr['status'];
+						name = arr['name'];
+						img = "uploads/" + arr['image_name'];
+						if(img == "uploads/" + "")
+							img = "1.jpg";
+
+						$(".people").html($(".people").html() + '<div class="people-card '+status+'" id="'+(arr['id']-1)+'"><img src="'+img+'"><div class="text-wrapper"><p><b>'+name+'</b></p><p>Status : '+status+'</p></div></div>');
+					});
+				});
+    		});
+    	}
+    });
 	// $('.people-card').click(function(){
 	// 	console.log(":)");
 	// 	$('.black-back').css("display","block");

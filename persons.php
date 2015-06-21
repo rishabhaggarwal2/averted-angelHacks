@@ -43,7 +43,7 @@
 		case 'update':
 			$id = $input['id'];
 			$status = $input['status'];
-			$updateInfo($o, $id, $status);
+			updateInfo($o, $id, $status);
 			break;
 		default:
 			# code...
@@ -64,10 +64,12 @@
 		$o->Select("locations", array("id"), array("name" => $loc));
 		$id = $o->ArrayResult()['id'];
 		$o->Insert("persons", array("name"=>$name, "loc_id" => $id, "status" => $status, "image_name" => $filename, "phone" => $phone));
-		echo "uploads/" + $filename;
+		// $a = {("uploads/"+$filename), $name};
+		// echo json_encode($r);
 	}
 
 	function updateInfo($o, $id, $status){
-		$o->update("persons", array("status" => $status), array("id" => $id));
+		$o->Update("persons", array("status" => $status), array("id" => $id));
+		// echo $id;
 	}
 ?>
