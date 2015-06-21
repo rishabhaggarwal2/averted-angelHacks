@@ -48,6 +48,21 @@ $(document).ready(function(){
 	success: function(data)   // A function to be called if request succeeds
 	{
 		console.log(data);
+		var client = new FCClientJS("af0351596bba4065b1b00785a4f3ecf4", "879cb3ac7e324d3a8ca15d68ed586f54");
+		var options = new Object();
+		options.detect_all_feature_points = true;
+		options.namespace = "thukral";
+		var person = $.parseJSON(data);
+		client.facesDetect(person[0], null, options, function(data){
+			console.log("detected");
+			var tid = data.photos[0].tags[0].tid;
+			client.tagsSave(tid, person[1]+"@thukral", options, function(){
+				console.log("tagSaved");
+				client.facesTrain(person[1]+"@thukral", options, function(){
+					console.log("done");
+				});
+			});
+		});
 		$('.tab-rm').animate({top:"-100%"},500);
 		$('.black-back').animate({opacity:"0"},500);
 		setTimeout(function(){
