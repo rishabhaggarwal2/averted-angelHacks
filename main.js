@@ -36,7 +36,11 @@ $(document).ready(function(){
 		e.preventDefault();
 		str = $("#fil2").val();
 		var pieces = str.split(/[\s,]+/);
-		alert(pieces[pieces.length-1]);
+		// alert(pieces[pieces.length-1]);
+		var path = pieces[pieces.length-1];
+		path = path.substring(11,path.length);
+		var finalPath = "http://rishabhaggarwal.net/uploads"+path;
+		
 	});
 	$("#sss").on('submit',(function(e) {
 	missing++;
