@@ -40,6 +40,13 @@ $(document).ready(function(){
 		var path = pieces[pieces.length-1];
 		path = path.substring(11,path.length);
 		var finalPath = "http://rishabhaggarwal.net/uploads"+path;
+		var client = new FCClientJS("af0351596bba4065b1b00785a4f3ecf4", "879cb3ac7e324d3a8ca15d68ed586f54");
+		var options = new Object();
+		options.detect_all_feature_points = true;
+		options.namespace = "thukral";
+		client.facesRecognize("all@thukral", finalPath, null, options, function(data){
+			alert(data.photos[0].tags[0].uids[0].uid);
+		});
 		
 	});
 	$("#sss").on('submit',(function(e) {
@@ -82,7 +89,7 @@ $(document).ready(function(){
 		options.detect_all_feature_points = true;
 		options.namespace = "thukral";
 		var person = $.parseJSON(data);
-		/*client.facesDetect(, null, options, function(data){
+		client.facesDetect(, null, options, function(data){
 			console.log("detected");
 			var tid = data.photos[0].tags[0].tid;
 			client.tagsSave(tid, person[1]+"@thukral", options, function(){
@@ -91,7 +98,7 @@ $(document).ready(function(){
 					console.log("done");
 				});
 			});
-		});*/
+		});
 		$('.tab-rm').animate({top:"-100%"},500);
 		$('.black-back').animate({opacity:"0"},500);
 		setTimeout(function(){
