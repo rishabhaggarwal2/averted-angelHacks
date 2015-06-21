@@ -106,6 +106,8 @@ $(document).ready(function(){
 		});
     });
 
+    $("#well").click();
+
 	//Abhinav
 	var x = $(window).height();
 	console.log(x);

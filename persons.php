@@ -64,6 +64,7 @@
 		$o->Select("locations", array("id"), array("name" => $loc));
 		$id = $o->ArrayResult()['id'];
 		$o->Insert("persons", array("name"=>$name, "loc_id" => $id, "status" => $status, "image_name" => $filename, "phone" => $phone));
+		echo "uploads/" + $filename;
 	}
 
 	function updateInfo($o, $id, $status){
